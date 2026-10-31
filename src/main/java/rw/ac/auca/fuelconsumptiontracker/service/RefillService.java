@@ -4,6 +4,8 @@ import java.util.*;
 import org.springframework.stereotype.Service;
 import rw.ac.auca.fuelconsumptiontracker.domain.Refill;
 import rw.ac.auca.fuelconsumptiontracker.repository.RefillRepository;
+import rw.ac.auca.fuelconsumptiontracker.domain.RefillStatus;
+import java.time.LocalDate;
 
 @Service
 public class RefillService {
@@ -44,5 +46,17 @@ public class RefillService {
 
 
  }
+
+ public List<Refill> byStatus(RefillStatus status) {
+
+    return repo.findByStatusOrderByRefillDateAsc(status);
+
+}
+
+public List<Refill> between(LocalDate start, LocalDate end) {
+
+    return repo.findByRefillDateBetweenOrderByRefillDateAsc(start, end);
+
+}
 
 }

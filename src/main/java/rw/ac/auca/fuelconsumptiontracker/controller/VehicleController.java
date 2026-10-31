@@ -41,6 +41,11 @@ public class VehicleController {
   return ResponseEntity.ok(item.get());
  }
 
+ @GetMapping("/by-department")
+public List<Vehicle> byDepartment(@RequestParam("department") String department) {
+    return service.byDepartment(department);
+}
+
 
  @PutMapping("/update/{id}")
  public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody Vehicle item) {
@@ -56,5 +61,5 @@ public class VehicleController {
   return ResponseEntity.ok("Vehicle deleted successfully");
  }
 
- 
+
 }

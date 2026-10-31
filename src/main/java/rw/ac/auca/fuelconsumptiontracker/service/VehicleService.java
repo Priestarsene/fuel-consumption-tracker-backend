@@ -37,5 +37,9 @@ public class VehicleService {
   if (!repo.existsById(id)) return false;
   repo.deleteById(id); return true;
  }
- 
+
+ public List<Vehicle> byDepartment(String department) {
+    return repo.findByDepartmentIgnoreCaseOrderByPlateNumberAsc(department);
+}
+
 }

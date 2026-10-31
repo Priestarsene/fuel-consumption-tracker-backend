@@ -5,6 +5,8 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import rw.ac.auca.fuelconsumptiontracker.domain.Refill;
 import rw.ac.auca.fuelconsumptiontracker.service.RefillService;
+import rw.ac.auca.fuelconsumptiontracker.domain.RefillStatus;
+import java.time.LocalDate;
 
 
 @RestController
@@ -36,9 +38,21 @@ public class RefillController {
  public ResponseEntity<?> byId(@PathVariable("id") UUID id) {
   Optional<Refill> item = service.byId(id);
   if (item.isEmpty()) return ResponseEntity.status(404).body("The refill with that id does not exist");
+
   return ResponseEntity.ok(item.get());
  }
 
+ @GetMapping("/by-status")
+public List<Refill> byStatus(@RequestParam("status") RefillStatus status) {
+    return service.byStatus(status);
+
+}
+
+@GetMapping("/between")
+public List<Refill> between(@RequestParam("start") String start, @RequestParam("end") String end) {
+    return service.between(LocalDate.parse(start), LocalDate.parse(end));
+
+}
 
  @PutMapping("/update/{id}")
  public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody Refill item) {
@@ -47,7 +61,7 @@ public class RefillController {
   return ResponseEntity.ok(saved.get());
  }
 
- 
+
  @DeleteMapping("/delete/{id}")
  public ResponseEntity<String> delete(@PathVariable("id") UUID id) {
   if (!service.delete(id)) return ResponseEntity.status(404).body("The refill with that id does not exist");
