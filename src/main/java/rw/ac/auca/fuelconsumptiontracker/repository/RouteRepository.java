@@ -10,4 +10,6 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
     @Query("SELECT r FROM Route r WHERE NOT EXISTS (SELECT d FROM Driver d WHERE d.route = r) ORDER BY r.routeNumber ASC")
     List<Route> findFreeRoutes();
 
+    Optional<Route> findByRouteNumber(int routeNumber);
+
 }

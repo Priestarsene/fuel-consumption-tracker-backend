@@ -21,12 +21,20 @@ public class RefillController {
     }
 
  @PostMapping("/save")
- public ResponseEntity<String> save(@RequestBody Refill item) {
-
-  service.save(item);
-  return ResponseEntity.status(HttpStatus.CREATED).body("Refill saved successfully");
+public ResponseEntity<String> save(@RequestBody Refill item) {
+    
+    String result = service.save(item);
+    
+    if (result.equals("Refill date cannot be in the past"))
+         return ResponseEntity.badRequest().body(result);
+    
+    if (result.equals("Driver already has a refill on that date"))
+        return ResponseEntity.status(409).body(result);
+ 
+    return ResponseEntity.status(201).body(result);
 
  }
+
  @GetMapping("/all")
  public List<Refill> all() {
     
@@ -64,7 +72,35 @@ public List<Refill> between(@RequestParam("start") String start, @RequestParam("
 
  @DeleteMapping("/delete/{id}")
  public ResponseEntity<String> delete(@PathVariable("id") UUID id) {
-  if (!service.delete(id)) return ResponseEntity.status(404).body("The refill with that id does not exist");
-  return ResponseEntity.ok("Refill deleted successfully");
+    String msg = service.deleteWithProtection(id);
+    if (msg.equals("The refill with that id does not exist"))
+        return ResponseEntity.status(404).body(msg);
+    if (msg.equals("That refill has trip records, delete them first"))
+        return ResponseEntity.status(409).body(msg);
+    return ResponseEntity.ok(msg);
+ 
  }
+
+ @PatchMapping("/{id}/status")
+ public ResponseEntity<String> changeStatus(
+        @PathVariable("id") UUID id,
+        @RequestParam("status") RefillStatus status) {
+    String message = service.changeStatus(id, status);
+    if (message.equals("The refill with that id does not exist"))
+        return ResponseEntity.status(404).body(message);
+    if (message.startsWith("Cannot change status"))
+        return ResponseEntity.badRequest().body(message);
+    return ResponseEntity.ok(message);
+}
+
+@GetMapping("/stats/by-status")
+public List<Object[]> statsByStatus() {
+    return service.statsByStatus();
+}
+
+@PatchMapping("/cancel-day")
+public String cancelDay(@RequestParam("driverId") UUID id, @RequestParam("date") LocalDate date) {
+    return service.cancelDay(id, date);
+}
+
 }
