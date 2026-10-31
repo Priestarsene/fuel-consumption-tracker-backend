@@ -38,4 +38,9 @@ public class LicenseClassService {
         repo.deleteById(id);
         return true;
     }
+    
+    public List<LicenseClass> unused() {
+    return repo.findUnused();
+
+    }
 }

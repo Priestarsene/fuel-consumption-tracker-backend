@@ -35,6 +35,12 @@ public class RouteController {
         return ResponseEntity.ok(item.get());
     }
 
+    @GetMapping("/free")
+    public List<Route> free() {
+    return service.free();
+    
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody Route item) {
         Optional<Route> saved = service.update(id, item);

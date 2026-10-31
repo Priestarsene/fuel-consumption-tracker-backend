@@ -5,16 +5,21 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import rw.ac.auca.fuelconsumptiontracker.domain.Vehicle;
 import rw.ac.auca.fuelconsumptiontracker.service.VehicleService;
+import java.util.UUID;
+import rw.ac.auca.fuelconsumptiontracker.repository.DriverRepository;
 
 @RestController
 @RequestMapping("/api/vehicles")
 
 public class VehicleController {
  private final VehicleService service;
- public VehicleController(VehicleService service) {
+ private final DriverRepository driverRepository;
+
+ public VehicleController(VehicleService service, DriverRepository driverRepository) {
 
      this.service = service; 
-    
+     this.driverRepository = driverRepository;
+
     }
 
 
@@ -44,6 +49,15 @@ public class VehicleController {
  @GetMapping("/by-department")
 public List<Vehicle> byDepartment(@RequestParam("department") String department) {
     return service.byDepartment(department);
+}
+
+@GetMapping("/of-driver/{driverId}")
+public ResponseEntity<?> ofDriver(@PathVariable("driverId") UUID id) {
+    if (!driverRepository.existsById(id)) {
+        return ResponseEntity.status(404).body("The driver with that id does not exist");
+    }
+    return ResponseEntity.ok(service.ofDriver(id));
+
 }
 
 

@@ -12,7 +12,7 @@ public class DriverService {
  public DriverService(DriverRepository repo) {
      this.repo = repo;
      }
-     
+
  public Driver save(Driver item) {
      return repo.save(item);
      }
@@ -37,5 +37,11 @@ public class DriverService {
   repo.deleteById(id); 
   return true;
  }
+
+public List<Driver> byLicenseClass(String name) {
+    
+    return repo.findDriversByLicenseClass(name);
+
+}
 
 }

@@ -38,4 +38,9 @@ public class RouteService {
         repo.deleteById(id);
         return true;
     }
+
+    public List<Route> free() {
+    return repo.findFreeRoutes();
+    
+    }
 }

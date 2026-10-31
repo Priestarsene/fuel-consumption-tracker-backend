@@ -42,4 +42,8 @@ public class VehicleService {
     return repo.findByDepartmentIgnoreCaseOrderByPlateNumberAsc(department);
 }
 
+public List<Vehicle> ofDriver(UUID id) {
+    return repo.findVehiclesOfDriver(id);
+
+}
 }

@@ -17,7 +17,7 @@ public class DriverController {
     this.service = service; 
     
     }
-    
+
  @PostMapping("/save")
  public ResponseEntity<String> save(@RequestBody Driver item) {
   service.save(item);
@@ -39,6 +39,12 @@ public class DriverController {
   return ResponseEntity.ok(item.get());
  }
 
+
+@GetMapping("/by-license-class")
+public List<Driver> byLicenseClass(@RequestParam("name") String name) {
+    return service.byLicenseClass(name);
+    
+}
 
  @PutMapping("/update/{id}")
  public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody Driver item) {

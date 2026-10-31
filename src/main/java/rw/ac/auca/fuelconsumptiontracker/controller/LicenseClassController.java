@@ -35,6 +35,12 @@ public class LicenseClassController {
         return ResponseEntity.ok(item.get());
     }
 
+    @GetMapping("/unused")
+    public List<LicenseClass> unused() {
+    return service.unused();
+    
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody LicenseClass item) {
         Optional<LicenseClass> saved = service.update(id, item);
