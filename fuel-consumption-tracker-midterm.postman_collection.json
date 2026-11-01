@@ -1,0 +1,226 @@
+{
+  "info": {
+    "_postman_id": "cd0307ca-813c-4819-8a9e-79483b01db03",
+    "name": "fuel-consumption-tracker-midterm",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58445747",
+    "_collection_link": "https://go.postman.co/collection/58445747-cd0307ca-813c-4819-8a9e-79483b01db03?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "A2 Get all vehicles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/vehicles/all",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "vehicles",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "B1 Vehicles by dept",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/vehicles/by-department?department=Logistics",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "vehicles",
+            "by-department"
+          ],
+          "query": [
+            {
+              "key": "department",
+              "value": "Logistics"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "B2 Refills by status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/refills/by-status?status=LOGGED",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "refills",
+            "by-status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "LOGGED"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "B3 Refills between",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/refills/between?start=2026-11-01&end=2026-11-30",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "refills",
+            "between"
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "2026-11-01"
+            },
+            {
+              "key": "end",
+              "value": "2026-11-30"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C1 Drivers by class",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/drivers/by-license-class?name=Class B",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "by-license-class"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Class B"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C2 Free routes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/routes/free",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "routes",
+            "free"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C3 Unused classes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/license-classes/unused",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "license-classes",
+            "unused"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D1 Safe save (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"refillDate\": \"2020-01-01\",\r\n  \"status\": \"LOGGED\",\r\n  \"litres\": 20,\r\n  \"odometer\": 1000,\r\n  \"driver\": { \"id\": \"00000000-0000-0000-0000-000000000000\" },\r\n  \"vehicle\": { \"id\": \"00000000-0000-0000-0000-000000000000\" }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/refills/save",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "refills",
+            "save"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "F1 Stats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/refills/stats/by-status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "refills",
+            "stats",
+            "by-status"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    }
+  ]
+}
